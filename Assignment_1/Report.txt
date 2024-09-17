@@ -1,0 +1,41 @@
+Brief explanation of the various components of the makefile.
+
+CC = gcc
+Tells program, which compiler to use. Here gcc.
+
+CCWARNINGS = -Wall -W
+Asking program to address warnings in compilation process. 
+Wall is activation of some default warnings, and -W is an extension with more options.
+
+CCOPT = -std=c11 -g
+C11 is just the standard for the c-language: ISO/IEC 9899:2011
+-g adds debugging info to the compiled program. Makes it possible to debug with for example gdb.
+
+CFLAGS = $(CCWARNINGS) $(CCOPT)
+Just combine warning calls into CFLAGS
+
+DEMO_SOURCES := io_demo.c io.c //list sources (files) that will be compiled.
+DEMO_OBJECTS := $(DEMO_SOURCES:.c=.o) //When compiled, .o files are created to be run. 
+_____________________________________________
+DEMO_EXECUTABLE = io_demo
+MAIN_EXECUTABLE = cmd_int
+EXECS = $(DEMO_EXECUTABLE) $(MAIN_EXECUTABLE)
+________: Names executable files and list them. 
+
+.PHONY: all run-demo run test // Tells which files that are commands and should not interfere in the build process.
+
+Rest of Makefile list executables and tells where they are placed. 
+
+_____________________________________________
+Brief explenation of how we implement I/O functions: 
+
+We implemented the functions using the system calls read() and write(),
+from the library unistd.h.
+read_char() reads a single bit/char c from the terminal.
+write_char() uses write() and points at the char c.
+write_string() calculates the length of the string and prints it using write().
+write_int() manually convert an integer to a string and then uses write().
+
+
+_____________________________________________
+Entering the input "abcqls" to the demo program.
