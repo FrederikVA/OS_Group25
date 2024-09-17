@@ -15,6 +15,25 @@
 int
 main()
 {
+    char *prompt = "Enter a command: a, b, or c\n";
+    write_string(prompt);
+
+    char c;
+
+    // Loop to read input
+    do
+    {
+        c = read_char();
+
+        if (c == 'a' || c == 'b' || c == 'c') 
+        {
+            write_char(c); // Echoes input
+        } else {
+            write_string(" Invalid input. \n");
+        }
+        
+    } while (c != 'q');
+    
   /*-----------------------------------------------------------------
    *TODO:  You need to implement the command line driver here as
    *       specified in the assignment handout.
@@ -33,6 +52,7 @@ main()
    *  Print your collection of elements as specified in the handout
    *    as a comma delimited series of integers
    *-----------------------------------------------------------------*/
-
+    char *exitMessage = "Program ends. Farewell\n";
+    write_string(exitMessage);
   return 0;
 }
