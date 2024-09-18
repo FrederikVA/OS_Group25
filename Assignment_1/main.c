@@ -1,6 +1,8 @@
 
 /* You are not allowed to use <stdio.h> */
 #include "io.h"
+#include <stdlib.h> 
+#include <stddef.h> 
 
 
 /**
@@ -30,12 +32,12 @@ void add_element_to_collection(Node** head, Node** tail, int value) {
         return;
     }
     new_node->value = value;
-    new_node->next = next;
-    new_node->prev = prev;
+    new_node->next = NULL;
+    new_node->prev = *tail;
 
     // Add the node to the end of the list
     if (*tail) {
-        (*tail)-> new_node;
+        (*tail)->next = new_node;
     } else {
         // If the list turns out to be empty, then we add the node as the head of the list
         *head = new_node;
@@ -46,22 +48,17 @@ void add_element_to_collection(Node** head, Node** tail, int value) {
 /* Function to remove the most recently added element from the linked list */
 void remove_last_added_element(Node** head, Node** tail) {
     // If the list is empty, there is nothing to remove
-    if (!*tail) {
-        return;
-    }
-
-    Node* to_remove = *tail;
-    *tail = to_remove->prev;
-
     if (*tail) {
-        (*tail)->next = NULL;
-    } else {
-        // If the list has become empty, then the head should also be NULL
-        *head = NULL;
+        Node* to_remove = *tail;
+        if ((*tail)->prev) {
+            *tail = (*tail)->prev;
+            (*tail)->next = NULL;
+        } else {
+            *head = NULL;
+            *tail = NULL;
+        }
+        free(to_remove);
     }
-
-    // Free allocated memory
-    free(to_remove);
 }
 
 /* Function meant to print the entire collection with appropriate separators and commas */
@@ -86,7 +83,7 @@ void print_collection(Node* head) {
     }
     // If current is last
     write_char(';');
-    write_char()
+    write_char('\n');
 }
 
 int main() {
