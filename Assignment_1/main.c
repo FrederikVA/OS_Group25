@@ -118,6 +118,13 @@ int main() {
     // Call to function for printing the collection as a list separated by commas
     print_collection(head);
 
+    // Clean up remaining nodes
+    while (head) {
+        Node* to_free = head;
+        head = head->next;
+        free(to_free);
+    }
+
     // Free allocated memory for the linked list
     Node* current = head;
     while (current) {
