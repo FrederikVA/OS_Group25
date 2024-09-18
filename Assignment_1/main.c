@@ -77,7 +77,7 @@ void print_collection(Node* head) {
         // If current is followed up by another element
         if (current->next) {
             write_char(',');
-            write_char(' ');
+            //write_char(' ');
         }
         current = current->next;
     }
@@ -87,8 +87,8 @@ void print_collection(Node* head) {
 }
 
 int main() {
-    char *prompt = "Enter a command: a, b, or c\n";
-    write_string(prompt);
+    //char *prompt = "Enter a command: a, b, or c\n";
+    //write_string(prompt);
 
     char c;
 
@@ -134,8 +134,8 @@ int main() {
     } 
 
 
-    char *exitMessage = "Program ends. Farewell\n";
-    write_string(exitMessage);
+    //char *exitMessage = "Program ends. Farewell\n";
+    //write_string(exitMessage);
   return 0;
 }
 
