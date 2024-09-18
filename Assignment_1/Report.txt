@@ -39,3 +39,8 @@ write_int() manually convert an integer to a string and then uses write().
 
 _____________________________________________
 Entering the input "abcqls" to the demo program.
+before hitting the return button. 
+What happens? 
+How do you explain this? 
+State an input string for which such behaviour would be very unfortunate.
+Suggest how the behaviour of the demo program could be made more safe.
