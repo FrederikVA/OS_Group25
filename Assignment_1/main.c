@@ -127,6 +127,13 @@ int main() {
     } 
 
 
+    char *exitMessage = "Program ends. Farewell\n";
+    write_string(exitMessage);
+  return 0;
+}
+
+
+
 /*
     // Loop to read input
     do
@@ -162,7 +169,3 @@ int main() {
    *  Print your collection of elements as specified in the handout
    *    as a comma delimited series of integers
    *-----------------------------------------------------------------*/
-    char *exitMessage = "Program ends. Farewell\n";
-    write_string(exitMessage);
-  return 0;
-}

@@ -40,40 +40,42 @@ write_string(char* s) {
     }
 }
 
-int 
-write_int(int n) {
-  return EOF;
-}
+
 
 /* Writes n to stdout (without any formatting).   
  * If no errors occur, it returns 0, otherwise EOF
  */
 
-/*
-int
-write_int(int n) {
-    char buffer[12];
+
+int write_int(int n) {
+    char buffer[12];  // Large enough to store the largest 32-bit int value (-2147483648)
     int length = 0;
     
-    //converting interger to string
-    if (n=0) {
+    // Handle negative numbers
+    if (n < 0) {
+        buffer[length++] = '-';
+        n = -n;
+    }
+
+    // Handle the special case where n is 0
+    if (n == 0) {
         buffer[length++] = '0';
     } else {
-        while (n > 0) {
-            buffer[length++] = '0' + n % 10;
-            n /= 10;
+        int temp = n;
+        while (temp > 0) {
+            buffer[length++] = '0' + temp % 10;
+            temp /= 10;
         }
     }
 
-    // Writing buffer
+    // Write characters to stdout, in reverse order for the number part
+    int bytes_written = 0;
     for (int i = length - 1; i >= 0; i--) {
-        if (write(1, %buffer[i], 1) == EOF) {
-            return EOF;
+        if (write(1, &buffer[i], 1) == -1) {
+            return -1;  // Error condition
         }
+        bytes_written++;
     }
     
-  write(1, &n, 1);  
-  return EOF;
+    return bytes_written;  // Return the number of bytes written
 }
-
-*/
