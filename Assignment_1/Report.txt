@@ -39,3 +39,19 @@ write_int() manually convert an integer to a string and then uses write().
 
 _____________________________________________
 Entering the input "abcqls" to the demo program.
+before hitting the return button. 
+What happens? 
+When something is typed in the shell, the shell has a buffer which collect
+the characters. It then sends it to the program. The read_char() in the main() loop reads those 
+one at a time. So - program reads 'a' and write it back using whrite_char(). It also increments
+the counter. count++. It does this with each char ("abcqls") and 'echoes' them back.
+When the program reads char 'q' it stops and breaks out of the loop. 
+Then it prints the counter value (write_string()) and (write_int()).
+
+-State an input string for which such behaviour would be very unfortunate.
+A long string with a 'q'. If a 'q' is present the process will stop, but still output 
+preciding chars.
+
+-Suggest how the behaviour of the demo program could be made more safe.
+We could use non-blocking I/O or read a char at a time without buffering all of the input.
+We could implement errorhandling.
