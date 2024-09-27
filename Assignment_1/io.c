@@ -1,6 +1,7 @@
 
 #include <errno.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "io.h"
 
@@ -45,34 +46,54 @@ write_string(char* s) {
  */
 
 int write_int(int n) {
-    char buffer[12];  // Large enough to store the largest 32-bit int value (-2147483648)
+    int countIn = n;
     int length = 0;
     
     // Handle negative numbers
     if (n < 0) {
-        buffer[length++] = '-';
-        n = -n;
+        length++;
+        countIn = -n;
     }
 
     // Handle the special case where n is 0
     if (n == 0) {
-        buffer[length++] = '0';
+        length = 1;
     } else {
-        int temp = n;
-        while (temp > 0) {
-            buffer[length++] = '0' + temp % 10;
-            temp /= 10;
+        while (countIn > 0) {
+            length++;
+            countIn /= 10; // Divide by 10 to get the next digit
         }
     }
 
-    // Write characters to stdout, in reverse order for the number part
-    int bytes_written = 0;
-    for (int i = length - 1; i >= 0; i--) {
-        if (write(1, &buffer[i], 1) == -1) {
-            return -1;  // Error condition
-        }
-        bytes_written++;
+  char *buffer = (char *)malloc(length);
+  if (!buffer) {
+    return -1; // return error if memory allocation fails
+  }
+  int index = 0; // Initialize index to 0
+
+  if (n < 0) {
+    buffer[index++] = '-'; // Add a negative sign if n is negative
+    n = -n; // Make n positive
+  }
+
+  // when n is 0:
+  if (n == 0)
+  {
+    buffer[index++] = '0';
+  } else {  
+    while (n > 0) {
+        buffer[index++] = n % 10 + '0'; // Add the next digit to the buffer
+        n /= 10; // Divide by 10 to get the next digit
     }
-    
-    return bytes_written;  // Return the number of bytes written
+  }
+  int bytes_written = 0; // Initialize bytes_written to 0
+  for (int i = index - 1; i >= 0; i--) {
+    if (write(1, &buffer[i], 1) == -1) {
+      return -1; // Return -1 if an error occurs
+    }
+    bytes_written++;
+  }
+  
+  free(buffer); // Free the allocated memory. Because we use malloc!  
+  return bytes_written;  // Return the number of bytes written
 }
