@@ -40,12 +40,9 @@ write_string(char* s) {
     }
 }
 
-
-
 /* Writes n to stdout (without any formatting).   
  * If no errors occur, it returns 0, otherwise EOF
  */
-
 
 int write_int(int n) {
     char buffer[12];  // Large enough to store the largest 32-bit int value (-2147483648)
